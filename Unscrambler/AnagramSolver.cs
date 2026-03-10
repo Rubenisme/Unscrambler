@@ -7,7 +7,13 @@ public static class AnagramSolver
     /// This is the canonical key used for anagram comparison.
     /// </summary>
     public static string Normalize(string input) =>
-        new string(input.Where(char.IsLetter).Select(char.ToLower).Order().ToArray());
+        new(
+            input
+                .Where(char.IsLetter)
+                .Select(char.ToLower)
+                .Order()
+                .ToArray()
+            );
 
     /// <summary>
     /// Returns all NS train stations whose letters are an anagram of the given puzzle.
