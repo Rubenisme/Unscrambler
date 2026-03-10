@@ -34,6 +34,8 @@ COPY --from=build --chown=appuser:appgroup /app/publish .
 USER appuser
 
 # Kestrel listens on 8080 in container contexts (DOTNET_RUNNING_IN_CONTAINER=true)
+# Kestrel default ports in .NET 8+ containers are 8080 for HTTP and 8081 for HTTPS, so we expose both
 EXPOSE 8080
+EXPOSE 8081
 
 ENTRYPOINT ["./Unscrambler.Web"]

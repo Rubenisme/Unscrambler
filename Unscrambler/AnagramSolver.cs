@@ -2,26 +2,42 @@ namespace Unscrambler;
 
 public static class AnagramSolver
 {
-    /// <summary>
-    /// Strips all non-letter characters, lowercases, and sorts alphabetically.
-    /// This is the canonical key used for anagram comparison.
-    /// </summary>
-    public static string Normalize(string input) =>
-        new(
-            input
-                .Where(char.IsLetter)
-                .Select(char.ToLower)
-                .Order()
-                .ToArray()
-            );
+    private static int[] LetterCounts(string input)
+    {
+        var counts = new int[26];
 
-    /// <summary>
-    /// Returns all NS train stations whose letters are an anagram of the given puzzle.
-    /// Spaces, dashes, and other non-letter characters in the puzzle are ignored.
-    /// </summary>
+        foreach (var idx in input
+                     .Where(char.IsLetter)
+                     .Select(c => char.ToLowerInvariant(c) - 'a'))
+        {
+            if (idx is >= 0 and < 26)
+                counts[idx]++;
+        }
+
+        return counts;
+    }
+
+    private static bool ContainsLetters(int[] station, int[] puzzle)
+    {
+        for (var i = 0; i < 26; i++)
+        {
+            if (puzzle[i] > station[i])
+                return false;
+        }
+
+        return true;
+    }
+
     public static IEnumerable<string> Solve(string puzzle)
     {
-        var key = Normalize(puzzle);
-        return Stations.All.Where(station => Normalize(station) == key);
+        var puzzleCounts = LetterCounts(puzzle);
+
+        foreach (var station in Stations.All)
+        {
+            var stationCounts = LetterCounts(station);
+
+            if (ContainsLetters(stationCounts, puzzleCounts))
+                yield return station;
+        }
     }
 }

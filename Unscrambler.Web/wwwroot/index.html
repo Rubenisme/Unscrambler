@@ -1,40 +1,88 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NS Anagram Solver</title>
-    <link rel="stylesheet" href="/css/styles.css" />
-    <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/css/styles.css">
+
+    <script src="https://unpkg.com/htmx.org@2.0.4"
+            integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+"
+            crossorigin="anonymous"></script>
 </head>
+
 <body>
-<div class="card">
-    <div class="ns-logo">
-        <span class="ns-badge">NS</span>
-        <span class="ns-title">Dutch Railways</span>
+
+    <div class="page">
+
+        <header class="hero">
+            <div class="brand">
+                <div class="ns-logo">NS</div>
+                <div class="brand-text">
+                    <h1>Station Anagram Solver</h1>
+                    <p>Decode scrambled Dutch railway station names</p>
+                </div>
+            </div>
+        </header>
+
+        <main class="card">
+
+            <form hx-post="/solve"
+                  hx-target="#results"
+                  hx-swap="innerHTML"
+                  hx-indicator="#loading"
+                  class="search-form">
+
+                <div class="input-wrapper">
+
+                    <input type="text"
+                           name="puzzle"
+                           placeholder="Example: Laser meld ge"
+                           autocomplete="off"
+                           autofocus>
+
+                    <button type="submit">
+                        Solve
+                    </button>
+
+                </div>
+
+            </form>
+
+            <div id="loading" class="htmx-indicator loading">
+                <div class="spinner"></div>
+                <span>Solving anagram…</span>
+            </div>
+
+            <section id="results">
+
+                <div class="empty">
+                    <p>Enter a puzzle above to reveal the station.</p>
+                </div>
+
+            </section>
+
+        </main>
+
+        <footer class="footer">
+            Netherlands Railway Station Anagram Solver
+        </footer>
+
+        <svg class="rainbow-bg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+            <defs>
+                <linearGradient id="rainbowGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#ff6ec4"></stop>
+                    <stop offset="20%" stop-color="#7873f5"></stop>
+                    <stop offset="40%" stop-color="#4facfe"></stop>
+                    <stop offset="60%" stop-color="#43e97b"></stop>
+                    <stop offset="80%" stop-color="#f9d423"></stop>
+                    <stop offset="100%" stop-color="#ff4e50"></stop>
+                </linearGradient>
+            </defs>
+            <path fill="url(#rainbowGradient)" fill-opacity="0.25" d="M0,192L80,170C160,149,320,107,480,117.3C640,128,800,192,960,202.7C1120,213,1280,171,1360,149.3L1440,128L1440,320L0,320Z"></path>
+        </svg>
     </div>
-    <h1>Anagram Solver</h1>
-    <p class="subtitle">Enter a scrambled station name and find out which NS station it is.</p>
 
-    <form hx-post="/solve"
-          hx-target="#results"
-          hx-swap="innerHTML"
-          hx-trigger="submit">
-        <div class="input-row">
-            <input type="text"
-                   name="puzzle"
-                   placeholder="e.g. Laser meld ge"
-                   autocomplete="off"
-                   autofocus />
-            <button type="submit">Search</button>
-        </div>
-    </form>
-
-    <div id="results">
-        <p class="hint">Enter an anagram to search.</p>
-    </div>
-</div>
-
-<footer>Train Station Anagram Solver &mdash; all NS stations in the Netherlands</footer>
 </body>
 </html>
