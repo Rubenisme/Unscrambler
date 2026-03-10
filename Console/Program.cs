@@ -1,4 +1,4 @@
-namespace Unscrambler;
+namespace Console;
 
 internal class Program
 {
@@ -14,14 +14,14 @@ internal class Program
         }
 
         // Interactive mode: keep asking for puzzles until the user quits.
-        Console.WriteLine("NS Train Station Anagram Solver");
-        Console.WriteLine("Type a scrambled station name and press Enter (or 'quit' to exit).");
-        Console.WriteLine();
+        System.Console.WriteLine("NS Train Station Anagram Solver");
+        System.Console.WriteLine("Type a scrambled station name and press Enter (or 'quit' to exit).");
+        System.Console.WriteLine();
 
         while (true)
         {
-            Console.Write("> ");
-            var input = Console.ReadLine();
+            System.Console.Write("> ");
+            var input = System.Console.ReadLine();
 
             if (input is null || input.Equals("quit", StringComparison.OrdinalIgnoreCase))
                 break;
@@ -34,15 +34,15 @@ internal class Program
 
         static void Solve(string puzzle)
         {
-            var matches = AnagramSolver.Solve(puzzle).ToList();
+            var matches = Unscrambler.AnagramSolver.Solve(puzzle).ToList();
 
             if (matches.Count is 0)
-                Console.WriteLine("No matching station found.");
+                System.Console.WriteLine("No matching station found.");
             else
                 foreach (var station in matches)
-                    Console.WriteLine($"  → {station}");
+                    System.Console.WriteLine($"  → {station}");
 
-            Console.WriteLine();
+            System.Console.WriteLine();
         }
     }
 }

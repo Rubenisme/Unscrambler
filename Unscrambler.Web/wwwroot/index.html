@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NS Anagram Solver</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="card">
+    <div class="ns-logo">
+        <span class="ns-badge">NS</span>
+        <span class="ns-title">Dutch Railways</span>
+    </div>
+    <h1>Anagram Solver</h1>
+    <p class="subtitle">Enter a scrambled station name and find out which NS station it is.</p>
+
+    <form hx-post="/solve"
+          hx-target="#results"
+          hx-swap="innerHTML"
+          hx-trigger="submit">
+        <div class="input-row">
+            <input type="text"
+                   name="puzzle"
+                   placeholder="e.g. Laser meld ge"
+                   autocomplete="off"
+                   autofocus />
+            <button type="submit">Search</button>
+        </div>
+    </form>
+
+    <div id="results">
+        <p class="hint">Enter an anagram to search.</p>
+    </div>
+</div>
+
+<footer>Train Station Anagram Solver &mdash; all NS stations in the Netherlands</footer>
+</body>
+</html>
