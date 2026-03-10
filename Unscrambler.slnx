@@ -2,7 +2,9 @@
   <Configurations>
     <Platform Name="x64" />
   </Configurations>
+  <Project Path="Console/Console.csproj" Id="946e4dec-7149-489e-af2a-fd47e4134129" />
+  <Project Path="Unscrambler.Web/Unscrambler.Web.csproj" />
   <Project Path="Unscrambler/Unscrambler.csproj">
-	<Platform Project="x64" />
+    <Platform Project="x64" />
   </Project>
 </Solution>
