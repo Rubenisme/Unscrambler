@@ -1,0 +1,36 @@
+# ── Unscrambler ──
+#
+# Traefik (see qromguard-deploy/traefik/) handles SSL and routing.
+# Requires the shared `traefik_proxy` network to exist on the host.
+#
+# Usage:
+#   docker compose --env-file .env.vars up -d
+
+services:
+  unscrambler:
+    image: ghcr.io/rubenisme/unscrambler:latest
+    expose:
+      - "8080"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.unscrambler.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.routers.unscrambler.entrypoints=websecure"
+      - "traefik.http.routers.unscrambler.tls=true"
+      - "traefik.http.routers.unscrambler.tls.certresolver=letsencrypt"
+      - "traefik.http.services.unscrambler.loadbalancer.server.port=8080"
+    networks:
+      - traefik_proxy
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp
+    mem_limit: 64m
+    cpus: 0.1
+
+networks:
+  traefik_proxy:
+    external: true
