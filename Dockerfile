@@ -26,10 +26,10 @@ FROM mcr.microsoft.com/dotnet/runtime-deps:10.0 AS runtime
 WORKDIR /app
 
 # Create a non-root user
-RUN addgroup --system --gid 1001 appgroup \
- && adduser  --system --uid 1001 --ingroup appgroup --no-create-home appuser
+RUN groupadd --system --gid 1001 appgroup \
+ && useradd  --system --uid 1001 --gid 1001 --no-create-home appuser
 
-COPY --from=build --chown=appuser:appgroup /app/publish .
+COPY --from=build --chown=appuser:appuser /app/publish .
 
 USER appuser
 
