@@ -55,3 +55,6 @@ nunit-*.xml
 
 # Visual Studio cache/options directory
 .vs/
+
+# LLMs
+.claude/
